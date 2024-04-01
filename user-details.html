@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+</head>
+<body id="usdet">
+<div id="user-details"></div>
+<button id="posts" onclick="fu()">Post_of_current_usser</button>
+<div id="post-titles"></div>
+<script>
+
+
+    // Отримання ідентифікатора користувача з URL-адреси
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('id');
+    function redirectToPostDetails(userId2,postId2) {
+        window.location.href = `post-details.html?id=${userId2}&p=${postId2}`;
+    }
+
+
+    fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+        .then(response => response.json())
+        .then(user => {
+
+            const userDetailsElement = document.getElementById('user-details');
+            userDetailsElement.innerHTML = `
+                    <p>ID: ${user.id}</p>
+                    <p>Name: ${user.name}</p>
+                    <p>Email: ${user.email}</p>
+                    <p>Phone: ${user.phone}</p>
+                    <p>Website: ${user.website}</p>
+                    <p>Company: ${user.company.name}</p>
+                    <p>Company catchPhrase: ${user.company.catchPhrase}</p>
+                    <p>Company bs: ${user.company.bs}</p>
+
+                    <p>Adress: City:${user.address.city},Street:${user.address.street}, Suite: ${user.address.suite}, Zipcode: ${user.address.zipcode},Geolocation: ${user.address.geo.lat},${user.address.geo.lng}</p>
+
+                `;
+        })
+        .catch(error => console.error('Error fetching user details:', error));
+
+
+        function fu(){fetch(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
+        .then(res=>res.json())
+        .then(value => {
+            let posT=document.getElementById('post-titles')
+            posT.innerHTML=``
+            for (const vl of value) { console.log(vl.title)
+                let tl=document.createElement("div")
+                tl.innerHTML=(`<div id="vltitle">${vl.title}</div>  <button id="mybtn"  onclick="redirectToPostDetails(${userId},${vl.id})">Details</button>`)
+                tl.setAttribute('id','div2')
+                document.getElementById('post-titles').append(tl)
+                console.log(vl)
+                console.log(userId,vl.id)
+
+
+
+            }
+
+
+
+        })}
+
+
+
+
+
+
+
+</script>
+<link rel="stylesheet" href="style.css">
+</body>
+</html>

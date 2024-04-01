@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="post-details"></div>
+<div id="post-comments"></div>
+<script>
+    // Отримання ідентифікатора користувача з URL-адреси
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId2 = urlParams.get('id');
+    const postId2 = urlParams.get('p');
+
+
+
+
+
+    fetch(`https://jsonplaceholder.typicode.com/users/${userId2}/posts`)
+        .then(res => res.json())
+        .then(vl => {
+
+            for (const post of vl) { if (post.id==postId2) {
+                const userDetailsElement = document.getElementById('post-details');
+                userDetailsElement.innerHTML = `<p>userID:${post.userId}</p>
+                <p>Id:${post.id}</p>
+                <p>Title:${post.title}</p>
+                <p>Body:${post.body}</p>`
+            }
+                console.log(post)
+                console.log(userId2,postId2)
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    })
+
+    fetch(`https://jsonplaceholder.typicode.com/posts/${postId2}/comments`)
+        .then(res => res.json())
+        .then(vl => {
+
+            for (const post of vl) {
+                const PostComments = document.createElement("div")
+                PostComments.innerHTML =`COMMENTS <p>User name:${post.name} </p>
+                <p>user email:${post.email}</p>
+                <p>ID:${post.postId} & PostID ${post.id}</p>
+                <p>user Body:${post.body}</p>`
+                PostComments.setAttribute('id','postcomment')
+                document.getElementById('post-comments').append(PostComments)
+
+            }
+
+
+            })
+
+
+</script>
+<link rel="stylesheet" href="style.css">
+</body>
+</html>
