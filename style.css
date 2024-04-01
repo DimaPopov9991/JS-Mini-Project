@@ -15,14 +15,15 @@
 
 }
 /*user details html*/
-#usdet{display: flex; flex-direction: column; align-content: center;background-color: coral}
+#usdet{display: flex; flex-direction: column; align-content: center;background-color: coral;}
 #posts{width: 90%;align-self: center}
 #post-titles{display: flex;flex-wrap: wrap;border-style: solid; border-color: coral; height: 60vh}
 #div2{ width: 19.6%; /* Кожен елемент займає 20% ширини батьківського контейнера */
     padding: 5px;
     margin:2px;
     box-sizing: border-box;
-    border: 1px solid purple;flex-direction: row; background-color: aquamarine}
+    border: 1px solid purple;flex-direction: row; background-color: aquamarine;}
+#user-details{background-color: #cccccc;}
 
 #vltitle{height: 15vh}
 #mybtn{background-color: #cccccc}
